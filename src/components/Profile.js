@@ -13,6 +13,7 @@ class Profile extends Component {
         this.setState({
           user: users.results[0]
         })
+        this.props.incrementViewed()
       })
   }
   render() {
@@ -22,7 +23,7 @@ class Profile extends Component {
         { !this.state.user ? (<p>Loading...</p>) : (
           <div>
             <h1>{ user.name.first }</h1>
-            <Button info >Next</Button>
+            <Button info onClick={this.getNextUser}>Next</Button>
           </div>
         )}
       </div>
