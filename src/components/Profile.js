@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { Button } from 'reactbulma';
+import { Button, Image } from 'reactbulma';
 
 class Profile extends Component {
   state = {
     user: null
   }
   getNextUser = () => {
+    this.setState({
+      user: null
+    })
     fetch('https://randomuser.me/api/')
       .then((response) => {
         return response.json()
@@ -20,10 +23,11 @@ class Profile extends Component {
     const { user } = this.state
     return (
       <div>
-        { !this.state.user ? (<p>Loading...</p>) : (
+        { !user ? (<p>Loading...</p>) : (
           <div>
+            <Image className="profile-img" is="128x128" src={user.picture.large} />
             <h1>{ user.name.first }</h1>
-            <Button info onClick={this.getNextUser}>Next</Button>
+            { this.props.viewed < this.props.maxViews ? <Button info onClick={this.getNextUser}>Next</Button> : ''}
           </div>
         )}
       </div>
